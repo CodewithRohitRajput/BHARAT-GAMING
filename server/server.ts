@@ -12,6 +12,8 @@ import signup from './routes/signup.js'
 import Tournament from './routes/Tournament.js'
 import cookieParser from 'cookie-parser'
 import Role from './routes/role.js'
+import instamojo from './routes/instamojo.js'
+import team from './routes/team.js'
 
 dotenv.config();
 
@@ -32,6 +34,8 @@ app.use(cors({
  app.use('/signup' , signup )
  app.use('/Tournament' , Tournament)
  app.use('/role' , Role)
+app.use('/payment' , instamojo)
+app.use('/team' , team)
 
 app.listen(port , ()=>{
         console.log(`Server is running on port ${port}`);

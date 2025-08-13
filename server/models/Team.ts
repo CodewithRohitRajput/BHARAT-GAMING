@@ -3,11 +3,9 @@ import mongoose, { Mongoose } from "mongoose"
 const TeamSchema = new mongoose.Schema({
     // id : String,
     teamname : String,
-    caption : String,
-    members : {
-        type : mongoose.Schema.Types.ObjectId , ref : 'User'
-    },
-    game : String,
+    captain : Number,
+    members : [Number],
+    // game : String,
     createdAt : Date
 
 })

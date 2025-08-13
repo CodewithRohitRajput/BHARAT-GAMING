@@ -12,6 +12,9 @@ export default function EventId() {
     const [tournament, setTournament] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
+
+    
+
     useEffect(() => {
         async function tournamentDetails() {
             try {
@@ -126,7 +129,7 @@ export default function EventId() {
 
                                 {/* Register Button */}
                                 <div className="flex justify-center">
-                                    <Link href="#" className="inline-block">
+                                    <Link href={`/Events/${id}/team`} className="inline-block">
                                     <button className="super-button">
   <span>Register Now</span>
   {/* <svg fill="none" viewBox="0 0 24 24" className="arrow">

@@ -41,7 +41,7 @@ export default  function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home", icon: FaHome },
-    { href: "#about", label: "About", icon: FaInfoCircle },
+    { href: "/AboutUs", label: "About", icon: FaInfoCircle },
     { href: "/Events", label: "Tournament", icon: FaTrophy },
 
    ...(role === 'admin' ? [{ href: "/Admin", label: "Admin", icon: FaTrophy }] : []) ,
