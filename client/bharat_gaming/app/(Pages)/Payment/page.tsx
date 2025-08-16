@@ -1,92 +1,74 @@
-'use client'
-import React, { useState } from "react";
+"use client"
 
-export default function PaymentPage() {
-  const [formData, setFormData] = useState({
-    amount: "",
-    purpose: "",
-    buyer_name: "",
-    email: "",
-    phone: "",
-    currency: "INR",
-  });
+import { useState } from "react"
+import Script from "next/script"
 
-  const handleChange = (e : any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+export default function Payment() {
+  const [busy, setBusy] = useState(false)
 
-  const handleSubmit = async (e : any) => {
-    e.preventDefault();
+  async function handlePay() {
+    if (busy) return
+    setBusy(true)
     try {
-      const res = await fetch("http://localhost:5000/payment", {
+      // 1. Ask backend to create order (amount in rupees here; backend multiplies by 100)
+      const res = await fetch("http://localhost:5000/payment/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+        body: JSON.stringify({ amount: 1 })
+      })
+      if (!res.ok) throw new Error("Order create failed")
+      const order = await res.json()
 
-      const data = await res.json();
-
-      if (data.payment_request?.longurl) {
-        // Redirect to Instamojo payment page
-        window.location.href = data.payment_request.longurl;
-      } else {
-        alert("Payment request failed!");
+      // 2. Ensure Razorpay SDK is loaded
+      const R = (window as any).Razorpay
+      if (!R) {
+        alert("Razorpay not ready. Reload page.")
+        return
       }
-    } catch (error) {
-      console.error(error);
-      alert("Error creating payment request");
+
+      // 3. Open checkout
+      const rzp = new R({
+        key: "rzp_test_R594dnJS3AC7Vu",
+        order_id: order.id,
+        amount: order.amount, // in paise from backend
+        currency: "INR",
+        name: "BHARAT GAMING",
+        description: "Tournament Fee",
+        notes: { platform: "BHARAT_GAMING" },
+        handler: (resp: any) => {
+          alert("Success: " + resp.razorpay_payment_id)
+          // Later: POST to /payment/verify with order.id, resp.razorpay_payment_id, resp.razorpay_signature
+        },
+        theme: { color: "#0ea5e9" }
+      })
+
+      rzp.on("payment.failed", (err: any) => {
+        alert("Failed: " + err.error.description)
+      })
+
+      rzp.open()
+    } catch (e: any) {
+      alert(e.message || "Error")
+    } finally {
+      setBusy(false)
     }
-  };
+  }
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
-      <h2>Make Payment</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="amount"
-          placeholder="Amount"
-          value={formData.amount}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="purpose"
-          placeholder="Purpose"
-          value={formData.purpose}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="buyer_name"
-          placeholder="Your Name"
-          value={formData.buyer_name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Pay Now</button>
-      </form>
-    </div>
-  );
+    <main className="min-h-screen flex flex-col items-center justify-center gap-6 bg-gray-900 text-white">
+      {/* Razorpay script auto-loads after the page becomes interactive */}
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
+      <h1 className="text-3xl font-bold">Simple Payment</h1>
+      <button
+        onClick={handlePay}
+        disabled={busy}
+        className={`px-6 py-3 rounded-md font-semibold ${
+          busy ? "bg-gray-600 cursor-not-allowed" : "bg-cyan-600 hover:bg-cyan-500"
+        }`}
+      >
+        {busy ? "Please wait..." : "Pay ₹1"}
+      </button>
+      <p className="text-xs text-gray-400">This is the minimal version.</p>
+    </main>
+  )
 }

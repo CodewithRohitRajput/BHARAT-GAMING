@@ -5,6 +5,12 @@ const TeamSchema = new mongoose.Schema({
     teamname : String,
     captain : Number,
     members : [Number],
+    tournament : 
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Tournament'
+        }
+    ,
     // game : String,
     createdAt : Date
 

@@ -42,9 +42,11 @@ export default  function Navbar() {
   const navLinks = [
     { href: "/", label: "Home", icon: FaHome },
     { href: "/AboutUs", label: "About", icon: FaInfoCircle },
-    { href: "/Events", label: "Tournament", icon: FaTrophy },
+    { href: "/Events", label: "Tournaments", icon: FaTrophy },
 
    ...(role === 'admin' ? [{ href: "/Admin", label: "Admin", icon: FaTrophy }] : []) ,
+    { href: "/myTournament", label: "Joined", icon: FaTrophy },
+
     { href: "#team", label: "Team", icon: FaUsers },
     { href: "#gears", label: "Gears", icon: FaCog },
     { href: "#contact", label: "Contact", icon: FaEnvelope },

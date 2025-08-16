@@ -1,0 +1,125 @@
+.card1 {
+  position: relative;
+  width: 190px;
+  height: 254px;
+  background-color: #5b3c8a;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 12px;
+  gap: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.card1::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
+  z-index: -1;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card1::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: 
+    linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #1a0b2e 100%),
+    radial-gradient(circle at 25% 25%, #40c9ff11 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, #e81cff11 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px, 30px 30px;
+  animation: floatParticles 8s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes floatParticles {
+  0%, 100% { 
+    background-position: 0% 0%, 0% 0%, 0% 0%;
+    opacity: 0.8;
+  }
+  50% { 
+    background-position: 0% 0%, 20px 20px, -30px 30px;
+    opacity: 1;
+  }
+}
+
+.card1:hover::after {
+  animation-duration: 4s;
+}
+/* Rest of the styles remain the same */
+.heading {
+  font-size: 50px;
+  text-transform: capitalize;
+  font-weight: 700;
+  transform: translateY(-40px);
+  color:#40c9ff
+}
+
+.card1 p:not(.heading) {
+  font-size: 14px;
+}
+
+.card1 p:last-child {
+  color: #e81cff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.card1:hover::before {
+  transform: rotate(-5deg) scale(1.02);
+}
+
+
+
+/*
+button card
+*/
+
+.button4 {
+  font-size: 1.2em;
+  padding: 0.1em 0.2em;
+  height: 40px;
+  width: 10rem;
+  border-radius: 0.5em;
+  border: none;
+  background: linear-gradient(90deg, #f441a5, #03a9f4 );
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 3px #000000b4;
+}
+
+.container4 {
+  position: relative;
+  padding: 3px;
+  background: linear-gradient(180deg, #f441a5, #03a9f4, );
+  border-radius: 0.9em;
+  transition: all 0.4s ease;
+}
+
+.container4::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 0.9em;
+  z-index: -10;
+  filter: blur(0);
+  transition: filter 0.4s ease;
+}
+
+.container4:hover::before {
+  background: linear-gradient(90deg, #03a9f4, #f441a5);
+  filter: blur(1.2em);
+}
+.container4:active::before {
+  filter: blur(0.2em);
+}

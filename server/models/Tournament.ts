@@ -16,6 +16,10 @@ const TournamentSchema = new mongoose.Schema({
            'upcoming' , 'ongoing' , 'completed'
         ] , default : 'upcoming'
     },
+    registeredTeams : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Team'
+    }],
     
     createdAt : Date,
     
