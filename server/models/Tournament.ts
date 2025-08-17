@@ -20,6 +20,8 @@ const TournamentSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Team'
     }],
+    roomId : {type : String || null},
+    roomPass : {type : String || null} ,
     
     createdAt : Date,
     

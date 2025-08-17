@@ -1,92 +1,94 @@
 'use client'
-
-import React from "react"
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
-import { FaTrophy, FaGamepad, FaCalendarAlt, FaUsers, FaClock, FaEdit, FaPlus } from 'react-icons/fa'
+import { FaTrophy, FaGamepad, FaCalendarAlt, FaUsers, FaClock, FaEdit, FaSave } from 'react-icons/fa';
 
-export default function TournamentCreator() {
-    const [tournamentname, setTournamentname] = useState<string>("")
-    const [game, setGame] = useState<string>("")
-    const [description, setDescription] = useState<string>("")
-    const [startDate, setStartDate] = useState<string>("")
-    const [endDate, setEndDate] = useState<string>("")
-    const [startTime, setStartTime] = useState<string>("")
-    const [registrationDeadline, setRegistrationDeadline] = useState<string>("")
-    const [maxTeams, setMaxTeams] = useState<number>(0)
-    const [rules, setRules] = useState<string>("")
-    const [prize, setPrize] = useState<string>("")
-    const [roomId, setRoomId] = useState<string>("")
-    const [roomPass, setRoomPass] = useState<string>("")
-    const [status, setStatus] = useState<string>("upcoming")
-    
-    const handleSubmit = async (e: React.FormEvent) => {
+function formatDate(dateString: string) {
+    if (!dateString) return "";
+    return dateString.slice(0, 10);
+}
+function formatDateTimeLocal(dateString: string) {
+    if (!dateString) return "";
+    return dateString.slice(0, 16);
+}
+
+export default function EditTournament() {
+    const { id } = useParams();
+    const [form, setForm] = useState({
+        tournamentname: "",
+        game: "",
+        description: "",
+        startDate: "",
+        endDate: "",
+        startTime: "",
+        registrationDeadline: "",
+        maxTeams: "",
+        rules: "",
+        prize: "",
+        status: "",
+        roomId: "",
+        roomPass: ""
+    });
+
+    useEffect(() => {
+        async function GetTournamentDetail() {
+            const res = await fetch(`http://localhost:5000/Tournament/get/${id}`, { credentials: 'include' });
+            const data = await res.json();
+            if (data.allTournaments) {
+                setForm({
+                    tournamentname: data.allTournaments.tournamentname || "",
+                    game: data.allTournaments.game || "",
+                    description: data.allTournaments.description || "",
+                    startDate: data.allTournaments.startDate || "",
+                    endDate: data.allTournaments.endDate || "",
+                    startTime: data.allTournaments.startTime || "",
+                    registrationDeadline: data.allTournaments.registrationDeadline || "",
+                    maxTeams: data.allTournaments.maxTeams || "",
+                    rules: data.allTournaments.rules || "",
+                    prize: data.allTournaments.prize || "",
+                    status: data.allTournaments.status || "",
+                    roomId: data.allTournaments.roomId || "",
+                    roomPass: data.allTournaments.roomPass || ""
+                });
+            }
+        }
+        GetTournamentDetail();
+    }, [id]);
+
+    const handleChange = (e: any) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-
-        const response = await fetch('http://localhost:5000/Tournament/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                tournamentname,
-                game,
-                description,
-                startDate: new Date(startDate),
-                endDate: new Date(endDate),
-                startTime,
-                registrationDeadline,
-                maxTeams,
-                rules,
-                prize,
-                status,
-                roomId,
-                roomPass
-            })
-        })
-
-        // Reset form
-        setTournamentname('')
-        setDescription('')
-        setEndDate('')
-        setGame('')
-        setMaxTeams(0)
-        setPrize('')
-        setRegistrationDeadline('')
-        setRules('')
-        setStartDate('')
-        setStartTime('')
-        setStatus('upcoming'),
-        setRoomId(''),
-        setRoomPass('')
-
-        const data = await response.json();
-        console.log(data);
-    }
+        await fetch(`http://localhost:5000/Tournament/${id}/edit`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(form)
+        });
+        alert("Tournament updated successfully!");
+    };
 
     return (
-        <div className="bg-gray-900 min-h-screen mt-10 text-white">
+        <div className="bg-gray-900 min-h-screen text-white">
             <Navbar />
-            
-            <div className="max-w-7xl mx-auto px-4 py-12">
+            <div className=" mt-14 max-w-7xl mx-auto px-4 py-12">
                 {/* Header */}
-                <div className="text-center mb-0-12">
+                <div className="text-center mb-12">
                     <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500/20 to-green-500/20 backdrop-blur-sm border border-orange-500/30 rounded-full px-6 py-2 mb-4">
                         <FaTrophy className="text-orange-400 w-5 h-5" />
-                        <span className="text-orange-300 font-semibold">Tournament Creator</span>
+                        <span className="text-orange-300 font-semibold">Edit Tournament</span>
                     </div>
-                    
                     <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-400 via-red-500 to-green-400 bg-clip-text text-transparent">
-                        Create New Tournament
+                        Update Tournament Details
                     </h1>
-                    
                     <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                        Fill out the details below to create your custom gaming tournament
+                        Modify the details below and save your changes.
                     </p>
                 </div>
-                
                 {/* Form Container */}
                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6 sm:p-8 shadow-2xl">
                     <form onSubmit={handleSubmit} className="space-y-8">
@@ -98,15 +100,15 @@ export default function TournamentCreator() {
                             </label>
                             <input
                                 type="text"
-                                value={tournamentname}
-                                onChange={e => setTournamentname(e.target.value)}
+                                name="tournamentname"
+                                value={form.tournamentname}
+                                onChange={handleChange}
                                 className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                 placeholder="e.g. Winter Championship"
                                 required
                             />
                         </div>
-                        
-                        {/* Game and Description */}
+                        {/* Game and Prize */}
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
@@ -115,14 +117,14 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="text"
-                                    value={game}
-                                    onChange={e => setGame(e.target.value)}
+                                    name="game"
+                                    value={form.game}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     placeholder="e.g. Valorant, BGMI"
                                     required
                                 />
                             </div>
-                            
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
                                     <FaEdit className="mr-2" />
@@ -130,14 +132,14 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="text"
-                                    value={prize}
-                                    onChange={e => setPrize(e.target.value)}
+                                    name="prize"
+                                    value={form.prize}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     placeholder="e.g. ₹50,000"
                                     required
                                 />
                             </div>
-
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
                                     <FaEdit className="mr-2" />
@@ -145,11 +147,11 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="text"
-                                    value={roomId}
-                                    onChange={e => setRoomId(e.target.value)}
+                                    name="roomId"
+                                    value={form.roomId}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     placeholder="e.g. 12345"
-                                    
                                 />
                             </div>
                             <div className="space-y-2">
@@ -159,15 +161,14 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="text"
-                                    value={roomPass}
-                                    onChange={e => setRoomPass(e.target.value)}
+                                    name="roomPass"
+                                    value={form.roomPass}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     placeholder="e.g. 101010"
-                                    
                                 />
                             </div>
                         </div>
-                        
                         {/* Description */}
                         <div className="space-y-2">
                             <label className="flex items-center text-lg font-medium text-orange-400">
@@ -175,14 +176,14 @@ export default function TournamentCreator() {
                                 Tournament Description
                             </label>
                             <textarea
-                                value={description}
-                                onChange={e => setDescription(e.target.value)}
+                                name="description"
+                                value={form.description}
+                                onChange={handleChange}
                                 className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition min-h-[120px]"
                                 placeholder="Describe your tournament rules, format, and other details..."
                                 required
                             />
                         </div>
-                        
                         {/* Dates */}
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
@@ -192,13 +193,13 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="date"
-                                    value={startDate}
-                                    onChange={e => setStartDate(e.target.value)}
+                                    name="startDate"
+                                    value={formatDate(form.startDate)}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     required
                                 />
                             </div>
-                            
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
                                     <FaCalendarAlt className="mr-2" />
@@ -206,14 +207,14 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="date"
-                                    value={endDate}
-                                    onChange={e => setEndDate(e.target.value)}
+                                    name="endDate"
+                                    value={formatDate(form.endDate)}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     required
                                 />
                             </div>
                         </div>
-                        
                         {/* Time and Registration */}
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
@@ -223,13 +224,13 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="time"
-                                    value={startTime}
-                                    onChange={e => setStartTime(e.target.value)}
+                                    name="startTime"
+                                    value={form.startTime}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     required
                                 />
                             </div>
-                            
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
                                     <FaClock className="mr-2" />
@@ -237,15 +238,15 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="datetime-local"
-                                    value={registrationDeadline}
-                                    onChange={e => setRegistrationDeadline(e.target.value)}
+                                    name="registrationDeadline"
+                                    value={formatDateTimeLocal(form.registrationDeadline)}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     required
                                 />
                             </div>
                         </div>
-                        
-                        {/* Teams and Rules */}
+                        {/* Teams and Status */}
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
@@ -254,23 +255,24 @@ export default function TournamentCreator() {
                                 </label>
                                 <input
                                     type="number"
-                                    value={maxTeams}
-                                    onChange={e => setMaxTeams(Number(e.target.value))}
+                                    name="maxTeams"
+                                    value={form.maxTeams}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     placeholder="e.g. 32"
                                     min="2"
                                     required
                                 />
                             </div>
-                            
                             <div className="space-y-2">
                                 <label className="flex items-center text-lg font-medium text-orange-400">
                                     <FaEdit className="mr-2" />
                                     Tournament Status
                                 </label>
                                 <select
-                                    value={status}
-                                    onChange={e => setStatus(e.target.value)}
+                                    name="status"
+                                    value={form.status}
+                                    onChange={handleChange}
                                     className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
                                     required
                                 >
@@ -280,7 +282,6 @@ export default function TournamentCreator() {
                                 </select>
                             </div>
                         </div>
-                        
                         {/* Rules */}
                         <div className="space-y-2">
                             <label className="flex items-center text-lg font-medium text-orange-400">
@@ -288,28 +289,28 @@ export default function TournamentCreator() {
                                 Detailed Rules
                             </label>
                             <textarea
-                                value={rules}
-                                onChange={e => setRules(e.target.value)}
+                                name="rules"
+                                value={form.rules}
+                                onChange={handleChange}
                                 className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 transition min-h-[150px]"
                                 placeholder="List all tournament rules and regulations..."
                                 required
                             />
                         </div>
-                        
                         {/* Submit Button */}
                         <div className="pt-4">
                             <button
                                 type="submit"
-                                className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
+                                className="w-full bg-gradient-to-r from-orange-500 to-green-600 hover:from-orange-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2"
                             >
-                                <FaPlus className="text-lg" />
-                                <span>Create Tournament.</span>
+                                <FaSave className="text-lg" />
+                                <span>Save Changes</span>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-            
+            <Footer />
         </div>
     );
 }
