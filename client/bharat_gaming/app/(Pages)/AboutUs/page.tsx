@@ -1,106 +1,230 @@
 import React from "react";
+import Navbar from "@/(Components)/Navbar/page";
+import Footer from "@/(Components)/Footer/page";
+import { FaTrophy, FaGamepad, FaUsers, FaStar, FaRocket, FaShieldAlt } from 'react-icons/fa';
 
 export default function AboutUs() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex flex-col items-center py-16 px-4">
-      <section className="max-w-3xl w-full text-center mb-12">
-        <h1 className="text-5xl font-extrabold text-cyan-400 drop-shadow-lg mb-4">
-          About Bharat Gaming
-        </h1>
-        <p className="text-lg text-gray-300 mb-6">
-          Welcome to{" "}
-          <span className="text-cyan-300 font-bold">Bharat Gaming</span> — India’s
-          own gaming platform! We are passionate gamers, tournament organizers,
-          and tech enthusiasts dedicated to building the best gaming community in
-          the country.
-        </p>
-        <div className="flex justify-center gap-4 mb-4">
-          <span className="inline-block px-4 py-2 bg-cyan-700 rounded-full text-sm font-semibold">
-            Tournaments
-          </span>
-          <span className="inline-block px-4 py-2 bg-orange-600 rounded-full text-sm font-semibold">
-            Community
-          </span>
-          <span className="inline-block px-4 py-2 bg-purple-700 rounded-full text-sm font-semibold">
-            Esports
-          </span>
-        </div>
-      </section>
-
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full">
-        <div className="bg-gray-800 rounded-xl shadow-lg p-8 flex flex-col items-center">
-          <img
-            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80"
-            alt="Gaming Team"
-            className="w-40 h-40 object-cover rounded-full border-4 border-cyan-500 mb-4"
-          />
-          <h2 className="text-2xl font-bold mb-2 text-cyan-300">
-            Our Mission
-          </h2>
-          <p className="text-gray-300">
-            To empower Indian gamers by providing a fair, fun, and competitive
-            platform for all. We host regular tournaments, foster a vibrant
-            community, and support aspiring esports athletes.
+    <div className="min-h-screen bg-gray-900 text-white">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <div className="relative pt-24 pb-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-900/20 to-purple-900/20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-500/30 rounded-full px-6 py-2 mb-6">
+            <FaTrophy className="text-cyan-400 w-5 h-5" />
+            <span className="text-cyan-300 font-semibold">About Bharat Gaming</span>
+          </div>
+          
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-400 bg-clip-text text-transparent">
+            India's Premier Gaming Platform
+          </h1>
+          
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
+            Welcome to <span className="text-cyan-400 font-bold">Bharat Gaming</span> — where passion meets competition. 
+            We're building India's largest gaming community, connecting millions of gamers through epic tournaments, 
+            fair competition, and unforgettable gaming experiences.
           </p>
-        </div>
-        <div className="bg-gray-800 rounded-xl shadow-lg p-8 flex flex-col items-center">
-          <img
-            src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
-            alt="Esports Event"
-            className="w-40 h-40 object-cover rounded-full border-4 border-orange-500 mb-4"
-          />
-          <h2 className="text-2xl font-bold mb-2 text-orange-300">
-            Why Choose Us?
-          </h2>
-          <ul className="text-gray-300 list-disc list-inside text-left">
-            <li>
-              Exciting tournaments for popular games like BGMI, Valorant, and more
-            </li>
-            <li>Secure, transparent, and fair play</li>
-            <li>Active Discord & social media community</li>
-            <li>Prizes, recognition, and growth opportunities</li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="mt-16 max-w-3xl w-full text-center">
-        <h2 className="text-3xl font-bold text-purple-400 mb-4">Meet the Team</h2>
-        <div className="flex flex-wrap justify-center gap-8">
-          <div className="flex flex-col items-center">
-            <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="Founder"
-              className="w-24 h-24 rounded-full border-2 border-cyan-400 mb-2"
-            />
-            <span className="font-semibold text-cyan-300">Rohit Rajput</span>
-            <span className="text-sm text-gray-400">
-              Founder & Lead Developer
+          
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <span className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-full text-sm font-bold shadow-lg">
+              🏆 500+ Tournaments
+            </span>
+            <span className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-sm font-bold shadow-lg">
+              👥 50K+ Gamers
+            </span>
+            <span className="px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full text-sm font-bold shadow-lg">
+              💰 ₹10L+ Prizes
             </span>
           </div>
-          <div className="flex flex-col items-center">
-            <img
-              src="https://randomuser.me/api/portraits/women/44.jpg"
-              alt="Community Manager"
-              className="w-24 h-24 rounded-full border-2 border-orange-400 mb-2"
-            />
-            <span className="font-semibold text-orange-300">Priya Sharma</span>
-            <span className="text-sm text-gray-400">Community Manager</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <img
-              src="https://randomuser.me/api/portraits/men/65.jpg"
-              alt="Tournament Admin"
-              className="w-24 h-24 rounded-full border-2 border-purple-400 mb-2"
-            />
-            <span className="font-semibold text-purple-300">Aman Singh</span>
-            <span className="text-sm text-gray-400">Tournament Admin</span>
+        </div>
+      </div>
+
+      {/* Mission & Vision Section */}
+      <div className="py-16 bg-gray-800/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Mission */}
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mr-4">
+                  <FaRocket className="text-white text-xl" />
+                </div>
+                <h2 className="text-3xl font-bold text-cyan-400">Our Mission</h2>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                To revolutionize India's gaming landscape by creating a unified platform where every gamer, 
+                from casual players to professional esports athletes, can compete, grow, and achieve their dreams. 
+                We're not just organizing tournaments — we're building careers and creating legends.
+              </p>
+            </div>
+
+            {/* Vision */}
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-purple-500/20 shadow-lg shadow-purple-500/10">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+                  <FaStar className="text-white text-xl" />
+                </div>
+                <h2 className="text-3xl font-bold text-purple-400">Our Vision</h2>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                To establish India as a global esports powerhouse by 2030. We envision a future where Indian gamers 
+                compete at the highest international levels, backed by world-class infrastructure, 
+                fair competition, and unwavering community support.
+              </p>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <footer className="mt-20 text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} Bharat Gaming. All rights reserved.
-      </footer>
-    </main>
+      {/* Why Choose Us Section */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+              Why Gamers Choose Bharat Gaming
+            </h2>
+            <p className="text-xl text-gray-400">The ultimate gaming experience awaits you</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="group bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <FaShieldAlt className="text-white text-2xl" />
+              </div>
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">Fair Play Guaranteed</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Advanced anti-cheat systems, transparent rules, and dedicated moderators ensure every match is fair and competitive.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="group bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <FaGamepad className="text-white text-2xl" />
+              </div>
+              <h3 className="text-2xl font-bold text-purple-400 mb-4">Multi-Game Platform</h3>
+              <p className="text-gray-300 leading-relaxed">
+                From BGMI and Valorant to Free Fire and Call of Duty — compete in your favorite games with regular tournaments.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="group bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700 hover:border-orange-500/50 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <FaTrophy className="text-white text-2xl" />
+              </div>
+              <h3 className="text-2xl font-bold text-orange-400 mb-4">Massive Rewards</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Win cash prizes, gaming gear, and exclusive rewards. Top performers get sponsored opportunities and career growth.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Team Section */}
+      <div className="py-16 bg-gray-800/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              Meet Our Gaming Leaders
+            </h2>
+            <p className="text-xl text-gray-400">The passionate team behind Bharat Gaming</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Team Member 1 */}
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 text-center border border-gray-700 shadow-lg">
+              <div className="relative mb-6">
+                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-cyan-600 p-1">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/32.jpg"
+                    alt="Founder"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center">
+                  <FaTrophy className="text-white text-sm" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-cyan-400 mb-2">Rohit Rajput</h3>
+              <p className="text-gray-400 mb-4">Founder & CEO</p>
+              <p className="text-gray-300 text-sm">
+                Ex-professional gamer turned entrepreneur. 8+ years in esports industry with a vision to make India a gaming superpower.
+              </p>
+            </div>
+
+            {/* Team Member 2 */}
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 text-center border border-gray-700 shadow-lg">
+              <div className="relative mb-6">
+                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-purple-600 p-1">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/44.jpg"
+                    alt="Community Manager"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <FaUsers className="text-white text-sm" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-purple-400 mb-2">Priya Sharma</h3>
+              <p className="text-gray-400 mb-4">Head of Community</p>
+              <p className="text-gray-300 text-sm">
+                Gaming influencer and community expert. Manages our 50K+ gamer community and ensures everyone feels at home.
+              </p>
+            </div>
+
+            {/* Team Member 3 */}
+            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 text-center border border-gray-700 shadow-lg">
+              <div className="relative mb-6">
+                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-orange-500 to-orange-600 p-1">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/65.jpg"
+                    alt="Tournament Director"
+                    className="w-full h-full rounded-full object-cover"
+                  />
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
+                  <FaGamepad className="text-white text-sm" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-orange-400 mb-2">Aman Singh</h3>
+              <p className="text-gray-400 mb-4">Tournament Director</p>
+              <p className="text-gray-300 text-sm">
+                Professional esports referee with 6+ years experience. Ensures fair play and manages all tournament operations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-16">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="bg-gradient-to-r from-cyan-900/50 to-purple-900/50 backdrop-blur-sm rounded-2xl p-12 border border-cyan-500/30">
+            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+              Ready to Join the Revolution?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Be part of India's fastest-growing gaming community. Compete, win, and make your mark in esports history.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 rounded-lg font-bold transition-all duration-300 transform hover:scale-105">
+                Join Tournaments
+              </button>
+              <button className="px-8 py-4 bg-transparent border-2 border-cyan-500 hover:bg-cyan-500/10 rounded-lg font-bold transition-all duration-300">
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
   );
 }
