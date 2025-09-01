@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import '@/app/(Pages)/Events/page.css'
 import './page.css'
 import './card.css'
+import Image from 'next/image'
+// import fortnite_image from '../../../../public/fortnite_1.png';
+
 import { 
   FaTrophy, FaGamepad, FaUsers, FaPlay, FaPlus, FaSearch, FaFire, 
   FaCalendarAlt, FaCrown, FaDiscord, FaTwitter, FaInstagram, FaTwitch,
@@ -91,7 +94,7 @@ export default function GamingLandingPage() {
   }, [])
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="bg-gray-900 mb-0 text-white min-h-screen">
       <main>
         {/* Hero Section - Clean Tech Theme */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black pt-16">
@@ -143,23 +146,17 @@ export default function GamingLandingPage() {
         </section>
 
         {/* Stats Section with Your Custom CSS */}
-        <section className="py-16 bg-gray-800">
-          {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
-            {stats.map((stat, index) => (
-              <div key={index} className="outer">
-                <div className="dot"></div>
-                <div className="card1">
-                  <div className="ray"></div>
-                  <div className="text">{stat.value}</div>
-                  <div className="text-sm mt-2 text-gray-300">{stat.label}</div>
-                  <div className="line topl"></div>
-                  <div className="line leftl"></div>
-                  <div className="line bottoml"></div>
-                  <div className="line rightl"></div>
-                </div>
-              </div>
-            ))}
-          </div> */}
+
+        {/* Games Section */}
+        <section id="games" className="">
+          <Image src={'/bgmi1.jpg'} fill alt='Bgmi bg' className='opacity-50' />
+          <div className="container mx-auto px-4">
+          </div>
+        </section>
+
+        <section className=' relative mt-0 mb-10 '>
+        <section className="py-16 ">
+        
 
               <div className='flex flex-row justify-between px-20 w-full'>
                 
@@ -173,17 +170,19 @@ export default function GamingLandingPage() {
        </div>
         </section>
 
-        {/* Games Section */}
-        <section id="games" className="py-20 bg-gray-900">
-          <div className="container mx-auto px-4">
+        
+          <div className='absolute inset-0 z-0'>
+
+          <Image src={'/valo2.jpg'} fill alt='Bgmi' className=' object-cover opacity-20' />
+          </div>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Featured Games</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
                 Play, compete and win in our most popular tournaments
               </p>
             </div>
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {games[activeTab].map((game, index) => (
                 <div key={index} className="bg-gray-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition duration-300 group border border-gray-700 hover:border-cyan-500/50">
                   <div className="h-40 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
@@ -203,13 +202,13 @@ export default function GamingLandingPage() {
                 </div>
               ))}
             </div>
-          </div>
         </section>
 
         {/* Tournaments Section with Your Custom Cards */}
         <section id="tournaments" className="relative py-20 bg-gray-800 overflow-hidden">
   {/* Background Elements */}
   <div className="absolute inset-0">
+    <Image src={"/fortnite_1.png"} fill alt='gaming pic' className='object-cover object-center opacity-50'  />
     <div className="absolute top-10 left-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
     <div className="absolute bottom-16 right-20 w-40 h-40 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
     <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-pink-500/10 rounded-full blur-lg animate-pulse delay-500"></div>

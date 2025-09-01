@@ -36,21 +36,22 @@ export default function EditTournament() {
         async function GetTournamentDetail() {
             const res = await fetch(`http://localhost:5000/Tournament/get/${id}`, { credentials: 'include' });
             const data = await res.json();
-            if (data.allTournaments) {
+            console.log(data);
+            if (data.singleTournament) {
                 setForm({
-                    tournamentname: data.allTournaments.tournamentname || "",
-                    game: data.allTournaments.game || "",
-                    description: data.allTournaments.description || "",
-                    startDate: data.allTournaments.startDate || "",
-                    endDate: data.allTournaments.endDate || "",
-                    startTime: data.allTournaments.startTime || "",
-                    registrationDeadline: data.allTournaments.registrationDeadline || "",
-                    maxTeams: data.allTournaments.maxTeams || "",
-                    rules: data.allTournaments.rules || "",
-                    prize: data.allTournaments.prize || "",
-                    status: data.allTournaments.status || "",
-                    roomId: data.allTournaments.roomId || "",
-                    roomPass: data.allTournaments.roomPass || ""
+                    tournamentname: data.singleTournament.tournamentname || "",
+                    game: data.singleTournament.game || "",
+                    description: data.singleTournament.description || "",
+                    startDate: data.singleTournament.startDate || "",
+                    endDate: data.singleTournament.endDate || "",
+                    startTime: data.singleTournament.startTime || "",
+                    registrationDeadline: data.singleTournament.registrationDeadline || "",
+                    maxTeams: data.singleTournament.maxTeams || "",
+                    rules: data.singleTournament.rules || "",
+                    prize: data.singleTournament.prize || "",
+                    status: data.singleTournament.status || "",
+                    roomId: data.singleTournament.roomId || "",
+                    roomPass: data.singleTournament.roomPass || ""
                 });
             }
         }

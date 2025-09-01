@@ -43,6 +43,7 @@ export default  function Navbar() {
     { href: "/", label: "Home", icon: FaHome },
     { href: "/AboutUs", label: "About", icon: FaInfoCircle },
     { href: "/Events", label: "Tournaments", icon: FaTrophy },
+    { href: "/Profile", label: "Profile", icon: FaTrophy },
 
    ...(role === 'admin' ? [{ href: "/Admin", label: "Admin", icon: FaTrophy }] : []) ,
     { href: "/myTournament", label: "Joined", icon: FaTrophy },

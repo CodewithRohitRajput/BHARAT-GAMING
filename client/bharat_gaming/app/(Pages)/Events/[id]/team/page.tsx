@@ -3,12 +3,15 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
+import Script from "next/script"
+
 import './page.css'
 import { useParams } from "next/navigation";
 
 export default function Team() {
   const {id} = useParams();
   const [teamname, setTeamname] = useState<string>('');
+  const [busy, setBusy] = useState<boolean>(false)
   const [captain, setCaptain] = useState<string>('');
   // const[mounted , setMounted] = useState(false)
   const [members, setMembers] = useState<string[]>([]);
@@ -21,6 +24,56 @@ export default function Team() {
 //   useEffect(()=>{
     
 // })
+
+// handle payment 
+  async function handlePay() {
+    if (busy) return
+    setBusy(true)
+    try {
+      // 1. Ask backend to create order (amount in rupees here; backend multiplies by 100)
+      const res = await fetch("http://localhost:5000/payment/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: 1 })
+      })
+      if (!res.ok) throw new Error("Order create failed")
+      const order = await res.json()
+
+      // 2. Ensure Razorpay SDK is loaded
+      const R = (window as any).Razorpay
+      if (!R) {
+        alert("Razorpay not ready. Reload page.")
+        return
+      }
+
+      // 3. Open checkout
+      const rzp = new R({
+        key: "rzp_test_R594dnJS3AC7Vu",
+        order_id: order.id,
+        amount: order.amount, // in paise from backend
+        currency: "INR",
+        name: "BHARAT GAMING",
+        description: "Tournament Fee",
+        notes: { platform: "BHARAT_GAMING" },
+        handler: (resp: any) => {
+          alert("Success: " + resp.razorpay_payment_id)
+          // Later: POST to /payment/verify with order.id, resp.razorpay_payment_id, resp.razorpay_signature
+           handleSubmit();
+        },
+        theme: { color: "#0ea5e9" }
+      })
+
+      rzp.on("payment.failed", (err: any) => {
+        alert("Failed: " + err.error.description)
+      })
+
+      rzp.open()
+    } catch (e: any) {
+      alert(e.message || "Error")
+    } finally {
+      setBusy(false)
+    }
+  }
 
   const addMember = () => {
     if (members.length >= MAX_MEMBERS) {
@@ -47,8 +100,12 @@ export default function Team() {
     setMembers(prev => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+
+
+
+  // Registering team 
+  const handleSubmit = async () => {
+    // e.preventDefault();
     setError('');
     setSuccess('');
 
@@ -65,7 +122,7 @@ export default function Team() {
     try {
       const response = await fetch(`http://localhost:5000/team/${id}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type':'application/json' },
         credentials : 'include',
         body: JSON.stringify({ 
           teamname, 
@@ -86,6 +143,10 @@ export default function Team() {
       setError(err.message || "Failed to register team");
     }
   };
+
+
+
+
 
   // Clear messages after 5 seconds
   useEffect(() => {
@@ -118,7 +179,7 @@ export default function Team() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form  className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-cyan-300 mb-1">Team Name</label>
                 <input
@@ -195,20 +256,22 @@ export default function Team() {
               <div className="w-full flex justify-center items-center">
 
 
-             <button type="submit" className="animated-button">
-  <svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-      ></path>
-  </svg>
-  <span className="text">Register </span>
-  <span className="circle"></span>
-  <svg viewBox="0 0 24 24" className="arr-1" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-      ></path>
-  </svg>
-</button>
+            
+   <main >
+      {/* Razorpay script auto-loads after the page becomes interactive */}
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
+      {/* <h1 className="text-3xl font-bold">Simple Payment</h1> */}
+      <button
+        onClick={handlePay}
+        disabled={busy}
+        className={`px-6 py-3 rounded-md font-semibold ${
+          busy ? "bg-gray-600 cursor-not-allowed" : "bg-cyan-600 hover:bg-cyan-500"
+        }`}
+      >
+        {busy ? "Please wait..." : "Pay ₹1"}
+      </button>
+      {/* <p className="text-xs text-gray-400">This is the minimal version.</p> */}
+    </main>
 <br /><br />
 
 

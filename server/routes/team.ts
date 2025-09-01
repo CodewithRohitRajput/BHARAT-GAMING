@@ -13,7 +13,7 @@ router.post('/:tournamentId', async (req, res) => {
     try {
         const SECRET: any = process.env.SECRET;
         const { tournamentId } = req.params;
-        const { teamname, captain, members } = req.body;
+        const { teamname, captain, members, paymentId, orderId } = req.body;
 
         // Get user from token
         const token = req.cookies.token;
@@ -47,7 +47,9 @@ router.post('/:tournamentId', async (req, res) => {
             captain,
             members,
             tournament: tournamentId,
-            captainUserId: userId // Add this field to track who registered
+            captainUserId: userId,
+              paymentId: paymentId, // Store payment reference
+            orderId: orderId // Added this field to track who registered
         });
 
         await newTeam.save();

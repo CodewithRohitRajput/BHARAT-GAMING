@@ -14,6 +14,7 @@ import cookieParser from 'cookie-parser'
 import Role from './routes/role.js'
 import razorpay from './routes/razorpay.js'
 import team from './routes/team.js'
+import profile from './routes/profile.js'
 
 dotenv.config();
 
@@ -36,8 +37,9 @@ app.use(cors({
  app.use('/signup' , signup )
  app.use('/Tournament' , Tournament)
  app.use('/role' , Role)
-app.use('/payment' , razorpay)
-app.use('/team' , team)
+ app.use('/payment' , razorpay)
+ app.use('/team' , team)
+ app.use('/Userprofile', profile);
 
 app.listen(port , ()=>{
         console.log(`Server is running on port ${port}`);

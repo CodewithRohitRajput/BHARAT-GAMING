@@ -48,8 +48,8 @@ router.get('/get' , async (req,res)=>{
 
 router.get('/get/:id' , async (req,res)=>{
     const {id} = req.params;
-    const allTournaments = await Tournament.findById(id);
-    return res.json({success : 200 , allTournaments});
+    const singleTournament = await Tournament.findById(id);
+    return res.json({success : 200 , singleTournament});
 })
 
 

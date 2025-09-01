@@ -28,8 +28,8 @@ export default function EventId() {
           `http://localhost:5000/Tournament/get/${id}`,
           { credentials: "include" }
         );
-        const tournamentData = await tournamentRes.json();
-        setTournament(tournamentData.allTournaments);
+        const data = await tournamentRes.json();
+        setTournament(data.singleTournament);
 
         // Check registration status
         const statusRes = await fetch(
@@ -438,15 +438,40 @@ export default function EventId() {
           </div>
         )}
       </div>
-      {!admin ? (<></>) : (<> 
-        <div>
-          <Link href={`${id}/Edit`}>
-          <button>
-            Edit
-          </button>
-          </Link>
+     {!admin ? (<></>) : (
+  <div className="fixed bottom-6 right-6 z-50">
+    <Link href={`${id}/Edit`}>
+      <button className="group relative bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 px-6 rounded-full shadow-2xl shadow-orange-500/25 transition-all duration-300 transform hover:scale-110 hover:shadow-orange-500/40">
+        {/* Icon */}
+        <div className="flex items-center space-x-2">
+          <svg 
+            className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" 
+            />
+          </svg>
+          <span className="hidden sm:inline">Edit Tournament</span>
+          <span className="sm:hidden">Edit</span>
         </div>
-      </>) }
+
+        {/* Animated Border */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm"></div>
+        
+        {/* Admin Badge */}
+        <div className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+          ADMIN
+        </div>
+      </button>
+    </Link>
+  </div>
+)}
 
       <div className="mt-20">
         <Footer />
