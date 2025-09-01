@@ -122,7 +122,7 @@ export default function GamingLandingPage() {
               
               <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 Compete in esports tournaments, build teams, and dominate the leaderboards.
-                Your journey to pro gaming starts here.
+                Your journey to pro gaming starts here
               </p>
 
               {/* Action Buttons */}
