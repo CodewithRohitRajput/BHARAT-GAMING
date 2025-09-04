@@ -34,7 +34,7 @@ export default function Profile() {
                                 {profile.username ? profile.username[0].toUpperCase() : "?"}
                             </span>
                         </div>
-                        <h2 className="text-2xl font-bold text-orange-400 drop-shadow mb-1"> {profile.username}'s Profile</h2>
+                        <h2 className="text-2xl font-bold text-orange-400 drop-shadow mb-1"> {profile.username} Profile</h2>
                         <p className="text-sm text-cyan-300">Welcome to Bharat Gaming!</p>
                     </div>
                     {hasToken ? (

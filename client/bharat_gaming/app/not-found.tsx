@@ -19,7 +19,7 @@ export default function NotFound() {
         <h2 className="text-2xl font-semibold mb-4">Game Not Found!</h2>
         <p className="text-gray-400 mb-8">
           Looks like this page wandered off to another server. 
-          Let's get you back to the gaming action!
+          Lets get you back to the gaming action!
         </p>
         
         {/* Action Buttons */}
