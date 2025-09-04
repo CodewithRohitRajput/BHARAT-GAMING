@@ -3,12 +3,13 @@ import Footer from "@/(Components)/Footer/page";
 
 // interface PageProps {
 //   params: {
+
 //     id: string;
 //   };
 // }
 
-export default async function AllTeams({ params }: {params : {id : string}}) {
-  const { id } = params;
+export default async function AllTeams({ params }: {params : Promise <{id : string} >}) {
+  const { id } = await  params;
 
   const res = await fetch(`http://localhost:5000/team/${id}/AllTeams`, {
     cache: "no-cache",
