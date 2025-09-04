@@ -1,13 +1,13 @@
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
+// interface PageProps {
+//   params: {
+//     id: string;
+//   };
+// }
 
-export default async function AllTeams({ params }: PageProps) {
+export default async function AllTeams({ params }: {params : {id : string}}) {
   const { id } = params;
 
   const res = await fetch(`http://localhost:5000/team/${id}/AllTeams`, {
