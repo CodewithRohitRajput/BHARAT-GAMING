@@ -183,7 +183,7 @@ export default function GamingLandingPage() {
             </div>
            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-              {games[activeTab].map((game, index) => (
+              {games[activeTab as keyof typeof games].map((game, index) => (
                 <div key={index} className="bg-gray-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition duration-300 group border border-gray-700 hover:border-cyan-500/50">
                   <div className="h-40 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
                     <FaGamepad className="text-4xl text-cyan-400 group-hover:text-white transition" />
