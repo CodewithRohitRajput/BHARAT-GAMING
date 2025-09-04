@@ -18,12 +18,12 @@ export default function AboutUs() {
           </div>
           
           <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-400 bg-clip-text text-transparent">
-            India's Premier Gaming Platform
+            India&#39s Premier Gaming Platform
           </h1>
           
           <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed">
             Welcome to <span className="text-cyan-400 font-bold">Bharat Gaming</span> — where passion meets competition. 
-            We're building India's largest gaming community, connecting millions of gamers through epic tournaments, 
+            We&#39re building India&#39s largest gaming community, connecting millions of gamers through epic tournaments, 
             fair competition, and unforgettable gaming experiences.
           </p>
           
@@ -54,9 +54,9 @@ export default function AboutUs() {
                 <h2 className="text-3xl font-bold text-cyan-400">Our Mission</h2>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed">
-                To revolutionize India's gaming landscape by creating a unified platform where every gamer, 
+                To revolutionize India&#39s gaming landscape by creating a unified platform where every gamer, 
                 from casual players to professional esports athletes, can compete, grow, and achieve their dreams. 
-                We're not just organizing tournaments — we're building careers and creating legends.
+                We&#39re not just organizing tournaments — we&#39re building careers and creating legends.
               </p>
             </div>
 
@@ -210,7 +210,7 @@ export default function AboutUs() {
               Ready to Join the Revolution?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Be part of India's fastest-growing gaming community. Compete, win, and make your mark in esports history.
+              Be part of India&#39s fastest-growing gaming community. Compete, win, and make your mark in esports history.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 rounded-lg font-bold transition-all duration-300 transform hover:scale-105">

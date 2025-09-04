@@ -152,7 +152,7 @@ export default async function Events() {
               <div className="bg-gray-800/50 border border-gray-700 rounded-xl max-w-md mx-auto p-8">
                 <FaGamepad className="text-6xl text-gray-500 mx-auto mb-4" />
                 <h2 className="text-2xl text-gray-400 mb-2 font-semibold">No Tournaments Available</h2>
-                <p className="text-gray-500">New tournaments coming soon!</p>
+                <p className="text-gray-500">New tournaments coming soon</p>
               </div>
             </div>
           )}

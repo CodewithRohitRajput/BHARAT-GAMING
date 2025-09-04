@@ -131,13 +131,13 @@ export default function EventId() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
                     </div>
-                    <h2 className="text-2xl font-bold text-white mb-4">🎮 Join the Competition!</h2>
+                    <h2 className="text-2xl font-bold text-white mb-4">🎮 Join the Competition</h2>
                     <p className="text-gray-300 mb-6">
                       Register your team now to secure your spot in the tournament.
                     </p>
                     
                     <div className="bg-gray-800/70 rounded-lg p-6 mb-6 border border-cyan-500/30">
-                      <h3 className="text-cyan-400 font-bold text-lg mb-4">✨ What You'll Get After Registration:</h3>
+                      <h3 className="text-cyan-400 font-bold text-lg mb-4">✨ What You&#39ll Get After Registration:</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                         <div className="flex items-center space-x-3">
                           <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
@@ -176,9 +176,9 @@ export default function EventId() {
                     </div>
 
                     <div className="bg-yellow-900/30 border border-yellow-500/50 rounded-lg p-4 mb-6">
-                      <p className="text-yellow-300 font-semibold text-sm mb-1">⚡ Limited Slots Available!</p>
+                      <p className="text-yellow-300 font-semibold text-sm mb-1">⚡ Limited Slots Available</p>
                       <p className="text-yellow-100 text-sm">
-                        Only {tournament.maxTeams} teams can participate. Register now to secure your spot!
+                        Only {tournament.maxTeams} teams can participate. Register now to secure your spot
                       </p>
                     </div>
                   </div>
@@ -194,9 +194,9 @@ export default function EventId() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
-                      <h2 className="text-2xl font-bold text-white mb-4">🎉 Registration Successful!</h2>
+                      <h2 className="text-2xl font-bold text-white mb-4">🎉 Registration Successful</h2>
                       <p className="text-gray-300 mb-4">
-                        Your team <span className="text-green-400 font-bold">"{userTeam?.teamname}"</span> is registered and ready to compete!
+                        Your team <span className="text-green-400 font-bold">"{userTeam?.teamname}"</span> is registered and ready to compete
                       </p>
                       
                       <div className="bg-gray-800/70 rounded-lg p-4 border border-green-500/30">
@@ -235,7 +235,7 @@ export default function EventId() {
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                             </svg>
-                            <span className="font-bold">Room Details Available!</span>
+                            <span className="font-bold">Room Details Available</span>
                           </div>
                           <p className="text-gray-300 text-sm mt-2">Use these credentials to join the tournament</p>
                         </div>
@@ -280,7 +280,7 @@ export default function EventId() {
                             <p className="text-yellow-300 font-bold">Important Instructions</p>
                           </div>
                           <p className="text-yellow-100 text-sm">
-                            Join the room 10-15 minutes before tournament start time. Keep this page bookmarked for easy access!
+                            Join the room 10-15 minutes before tournament start time. Keep this page bookmarked for easy access
                           </p>
                         </div>
                       </div>
@@ -292,10 +292,10 @@ export default function EventId() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </div>
-                        <h4 className="text-xl font-bold text-gray-300 mb-4">Room Details Coming Soon!</h4>
+                        <h4 className="text-xl font-bold text-gray-300 mb-4">Room Details Coming Soon</h4>
                         <p className="text-gray-400 mb-6">
                           The admin will update room credentials closer to the tournament date. 
-                          Don't worry, you'll see them here automatically once they're available.
+                          Don&#39t worry, you&#39ll see them here automatically once they&#39re available.
                         </p>
                         
                         <div className="bg-gray-800/70 rounded-lg p-4 border border-gray-600">
@@ -304,7 +304,7 @@ export default function EventId() {
                               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                             </svg>
-                            <p className="text-blue-400 font-semibold text-sm">You'll be notified automatically</p>
+                            <p className="text-blue-400 font-semibold text-sm">You&#39ll be notified automatically</p>
                           </div>
                           <p className="text-gray-400 text-sm">
                             Refresh this page periodically or bookmark it to check for updates
@@ -432,7 +432,7 @@ export default function EventId() {
                 Tournament not found
               </h2>
               <p className="text-gray-300">
-                The tournament you're looking for doesn't exist or may have been removed.
+                The tournament you&#39re looking for doesn&#39t exist or may have been removed.
               </p>
             </div>
           </div>
