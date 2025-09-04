@@ -48,7 +48,7 @@ export default function NotFound() {
             <div className="text-gray-400">Active Tournaments</div>
           </div>
           <div className="bg-gray-800 rounded-lg p-4">
-            <div className="text-cyan-400 font-bold">50K+</div>
+            <div className="text-cyan-400 font-bold">500+</div>
             <div className="text-gray-400">Happy Gamers</div>
           </div>
         </div>
