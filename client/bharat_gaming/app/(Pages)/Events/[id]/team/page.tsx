@@ -139,7 +139,7 @@ export default function Team() {
       setTeamname('');
       setCaptain('');
       setMembers([]);
-    } catch (err) {
+    } catch (err : any) {
       setError(err.message || "Failed to register team");
     }
   };
