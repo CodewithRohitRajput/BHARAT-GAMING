@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
+import { API_BASE } from "@/utils/api";
 
 export default function Profile() {
     const [profile, setProfile] = useState({
@@ -12,7 +13,7 @@ export default function Profile() {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const res = await fetch(`http://localhost:5000/Userprofile`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE}/Userprofile`, { credentials: 'include' });
             const data = await res.json();
             setHasToken(data.token);
             setProfile({

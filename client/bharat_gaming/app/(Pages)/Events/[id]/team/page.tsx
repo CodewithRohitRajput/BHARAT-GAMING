@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
 import Script from "next/script"
-
+import { API_BASE } from "@/utils/api";
 import './page.css'
 import { useParams } from "next/navigation";
 
@@ -31,7 +31,7 @@ export default function Team() {
     setBusy(true)
     try {
       // 1. Ask backend to create order (amount in rupees here; backend multiplies by 100)
-      const res = await fetch("http://localhost:5000/payment/create-order", {
+      const res = await fetch(`${API_BASE}/payment/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: 1 })
@@ -120,7 +120,7 @@ export default function Team() {
     // }
 
     try {
-      const response = await fetch(`http://localhost:5000/team/${id}`, {
+      const response = await fetch(`${API_BASE}/team/${id}`, {
         method: 'POST',
         headers: { 'Content-Type':'application/json' },
         credentials : 'include',

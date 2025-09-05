@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
+import { API_BASE } from "@/utils/api";
 import { FaTrophy, FaGamepad, FaCalendarAlt, FaUsers, FaClock, FaEdit, FaSave } from 'react-icons/fa';
 
 function formatDate(dateString: string) {
@@ -34,7 +35,7 @@ export default function EditTournament() {
 
     useEffect(() => {
         async function GetTournamentDetail() {
-            const res = await fetch(`http://localhost:5000/Tournament/get/${id}`, { credentials: 'include' });
+            const res = await fetch(`${API_BASE}/Tournament/get/${id}`, { credentials: 'include' });
             const data = await res.json();
             console.log(data);
             if (data.singleTournament) {
@@ -64,7 +65,7 @@ export default function EditTournament() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        await fetch(`http://localhost:5000/Tournament/${id}/edit`, {
+        await fetch(`${API_BASE}/${id}/edit`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

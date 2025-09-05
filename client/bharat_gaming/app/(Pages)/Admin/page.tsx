@@ -4,6 +4,7 @@ import React from "react"
 import { useState } from "react";
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
+import { API_BASE } from "@/utils/api";
 import { FaTrophy, FaGamepad, FaCalendarAlt, FaUsers, FaClock, FaEdit, FaPlus } from 'react-icons/fa'
 
 export default function TournamentCreator() {
@@ -24,7 +25,7 @@ export default function TournamentCreator() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const response = await fetch('http://localhost:5000/Tournament/create', {
+        const response = await fetch(`${API_BASE}/Tournament/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

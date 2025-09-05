@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
+import { API_BASE } from "@/utils/api";
 import Link from "next/link";
 import "./page.css";
 
@@ -25,7 +26,7 @@ export default function EventId() {
       try {
         // Get tournament details
         const tournamentRes = await fetch(
-          `http://localhost:5000/Tournament/get/${id}`,
+          `${API_BASE}/Tournament/get/${id}`,
           { credentials: "include" }
         );
         const data = await tournamentRes.json();
@@ -33,7 +34,7 @@ export default function EventId() {
 
         // Check registration status
         const statusRes = await fetch(
-          `http://localhost:5000/team/${id}/registration-status`,
+          `${API_BASE}/team/${id}/registration-status`,
           { credentials: "include" }
         );
         const statusData = await statusRes.json();
@@ -53,7 +54,7 @@ export default function EventId() {
     
     
     const checkAdmin = async () =>{
-      const res = await fetch(`http://localhost:5000/Tournament/isAdmin` , {credentials : 'include'})
+      const res = await fetch(`${API_BASE}/Tournament/isAdmin` , {credentials : 'include'})
       const data = await res.json();
       setAdmin(data.adminUser);
     }

@@ -1,5 +1,6 @@
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
+import { API_BASE } from "@/utils/api";
 
 // interface PageProps {
 //   params: {
@@ -11,7 +12,7 @@ import Footer from "@/(Components)/Footer/page";
 export default async function AllTeams({ params }: {params : Promise <{id : string} >}) {
   const { id } = await  params;
 
-  const res = await fetch(`http://localhost:5000/team/${id}/AllTeams`, {
+  const res = await fetch(`${API_BASE}/team/${id}/AllTeams`, {
     cache: "no-cache",
   });
 

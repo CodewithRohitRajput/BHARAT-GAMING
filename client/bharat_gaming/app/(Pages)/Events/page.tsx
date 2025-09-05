@@ -2,11 +2,12 @@ import React from "react";
 import './page.css';
 import Navbar from "@/(Components)/Navbar/page";
 import Footer from "@/(Components)/Footer/page";
+import { API_BASE } from "@/utils/api";
 import Link from "next/link";
 import { FaGamepad, FaCalendarAlt, FaClock, FaTrophy, FaUsers, FaFire } from "react-icons/fa";
 
 export default async function Events() {
-  const res = await fetch('http://localhost:5000/Tournament/get', {
+  const res = await fetch(`${API_BASE}/Tournament/get`, {
     cache: 'no-store',
   });
 

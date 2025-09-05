@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import './page.css'
+import { API_BASE } from "@/utils/api";
 import Link from "next/link";
 export default  function Signup() {
     const[username , setUsername] = useState<string>("");
@@ -11,7 +12,7 @@ export default  function Signup() {
 
     const handleSubmit = async (e : any) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/signup' , {method : 'POST' , 
+        const response = await fetch(`${API_BASE}/signup` , {method : 'POST' , 
             headers : {
                 
              'Content-Type' :  'application/json'
