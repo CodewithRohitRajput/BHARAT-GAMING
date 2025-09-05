@@ -66,7 +66,7 @@ router.post('/:tournamentId', async (req, res) => {
             }
         });
 
-    } catch (error) {
+    } catch (error : any) {
         return res.status(500).json({ error: error.message });
     }
 });
@@ -114,7 +114,7 @@ router.get('/:tournamentId/registration-status', async (req, res) => {
             } : null
         });
 
-    } catch (error) {
+    } catch (error : any) {
         return res.status(500).json({ error: error.message });
     }
 });
