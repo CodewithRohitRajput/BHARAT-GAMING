@@ -82,7 +82,7 @@ export default function EditTournament() {
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500/20 to-green-500/20 backdrop-blur-sm border border-orange-500/30 rounded-full px-6 py-2 mb-4">
                         <FaTrophy className="text-orange-400 w-5 h-5" />
-                        <span className="text-orange-300 font-semibold">Edit Tournament</span>
+                        <span className="text-orange-300 font-semibold">Edit Game</span>
                     </div>
                     <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-400 via-red-500 to-green-400 bg-clip-text text-transparent">
                         Update Tournament Details
