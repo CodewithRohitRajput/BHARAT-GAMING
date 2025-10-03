@@ -14,39 +14,44 @@ if(!SECRET){
 }
 
 router.post('/' , async (req  , res)=>{
+    try {
+        const {username , email , password , role , createdAt , updatedAt} = req.body;
 
-    const {username , email , password , role , createdAt , updatedAt} = req.body;
+        console.log('Signup attempt:', { username, email, role });
 
-    const alreadyUser = await User.findOne({email})
-    if(alreadyUser) return res.json({status : 400 , message : "User Already Exists"});
+        // Validate required fields
+        if (!username || !email || !password) {
+            return res.status(400).json({success : false , message : "Username, email, and password are required"});
+        }
 
-    const hashPass = await bcrypt.hash(password ,10);
+        const alreadyUser = await User.findOne({email})
+        if(alreadyUser) return res.status(400).json({success : false , message : "User Already Exists"});
 
-    const newUser = new User({username , email , password : hashPass , role});
+        const hashPass = await bcrypt.hash(password ,10);
 
-    await newUser.save();
+        const newUser = new User({username , email , password : hashPass , role});
 
-    const token = jwt.sign({id : newUser._id , email : newUser.email , role : newUser.role} , SECRET)
+        await newUser.save();
 
-    // for pro sameSite : 'none' and secure : true
+        const token = jwt.sign({id : newUser._id , email : newUser.email , role : newUser.role} , SECRET)
 
-    
-    res.cookie('token' , token , {
-        httpOnly : true,
-        sameSite : 'lax',
-        path : '/',
-        maxAge : 3600000,
-        secure : false
-    })
-    // res.cookie('role' , newUser.role , {
-    //     httpOnly : false,
-    //     sameSite : 'lax',
-    //     path : '/',
-    //     maxAge : 3600000,
-    //     secure : false
-    // })
+        // for pro sameSite : 'none' and secure : true
 
-    return res.json({status : 200 , message : "User Registered Successfully" , token});
+        
+        res.cookie('token' , token , {
+            httpOnly : true,
+            sameSite : 'lax',
+            path : '/',
+            maxAge : 3600000,
+            secure : false
+        })
+
+        console.log('User registered successfully:', newUser.email);
+        return res.json({success : true , message : "User Registered Successfully" , token});
+    } catch (error) {
+        console.error('Signup error:', error);
+        return res.status(500).json({success : false , message : "Internal server error"});
+    }
 
 
 })

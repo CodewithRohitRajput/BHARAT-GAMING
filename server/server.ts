@@ -25,8 +25,11 @@ const port = 5000;
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-        origin : ['https://bharat-gaming.vercel.app/' ,
-         'http://localhost:3000'],
+        origin : [
+            'http://localhost:3000',
+            'https://bharat-gaming.vercel.app',
+            'https://your-production-domain.com'
+        ],
         credentials : true,
         methods : ['GET' , 'POST' , 'PUT' , 'DELETE'],
         allowedHeaders : ['Content-Type' , 'Authorization']
@@ -41,6 +44,16 @@ app.use(cors({
  app.use('/payment' , razorpay)
  app.use('/team' , team)
  app.use('/Userprofile', profile);
+
+// Add error handling for routes
+app.use('*', (req, res) => {
+    console.log(`404 - Route not found: ${req.method} ${req.originalUrl}`);
+    res.status(404).json({ 
+        error: 'Route not found',
+        method: req.method,
+        url: req.originalUrl 
+    });
+});
 
 app.listen(port , ()=>{
         console.log(`Server is running on port ${port}`);

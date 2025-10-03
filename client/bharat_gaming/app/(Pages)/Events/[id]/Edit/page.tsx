@@ -65,7 +65,7 @@ export default function EditTournament() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        await fetch(`${API_BASE}/${id}/edit`, {
+        await fetch(`${API_BASE}/Tournament/${id}/edit`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

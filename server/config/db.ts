@@ -7,14 +7,20 @@ import mongoose from "mongoose";
 dotenv.config();
 
 const connectDB = async () =>{
+    try {
+        const mongoURI = process.env.MONGODB_URI;
+        
+        if (!mongoURI) {
+            throw new Error('MONGODB_URI is not defined in environment variables');
+        }
 
-    mongoose.connect(process.env.MONGODB_URI  as string)
-    .then(()=>{
-        console.log('MongoDB Connected');
-    })
-    .catch(()=> {
-        console.log("Failed to connect with MongoDB")
-    })
+        await mongoose.connect(mongoURI);
+        console.log('MongoDB Connected successfully');
+        
+    } catch (error) {
+        console.error("Failed to connect with MongoDB:", error);
+        process.exit(1);
+    }
 }
 
 // module.exports = connectDB;

@@ -1,17 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const router = express_1.default.Router();
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const Team_js_1 = __importDefault(require("../models/Team.js"));
-const Tournament_js_1 = __importDefault(require("../models/Tournament.js"));
-dotenv_1.default.config();
+import express from 'express';
+const router = express.Router();
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import Team from '../models/Team.js';
+import Tournament from '../models/Tournament.js';
+dotenv.config();
 // Team registration with user tracking
-router.post('/:tournamentId', async (req, res) => {
+router.post('/:tournamentId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const SECRET = process.env.SECRET;
         const { tournamentId } = req.params;
@@ -21,14 +25,14 @@ router.post('/:tournamentId', async (req, res) => {
         if (!token) {
             return res.status(401).json({ message: "Please login to register" });
         }
-        const decoded = jsonwebtoken_1.default.verify(token, SECRET);
+        const decoded = jwt.verify(token, SECRET);
         const userId = decoded.id;
-        const tournament = await Tournament_js_1.default.findById(tournamentId);
+        const tournament = yield Tournament.findById(tournamentId);
         if (!tournament) {
             return res.status(404).json({ message: "Tournament not found" });
         }
         // Check if user already registered
-        const existingTeam = await Team_js_1.default.findOne({
+        const existingTeam = yield Team.findOne({
             tournament: tournamentId,
             captainUserId: userId
         });
@@ -38,7 +42,7 @@ router.post('/:tournamentId', async (req, res) => {
             });
         }
         // Create team with user tracking
-        const newTeam = new Team_js_1.default({
+        const newTeam = new Team({
             teamname,
             captain,
             members,
@@ -47,9 +51,9 @@ router.post('/:tournamentId', async (req, res) => {
             paymentId: paymentId, // Store payment reference
             orderId: orderId // Added this field to track who registered
         });
-        await newTeam.save();
+        yield newTeam.save();
         tournament.registeredTeams.push(newTeam._id);
-        await tournament.save();
+        yield tournament.save();
         return res.json({
             success: 200,
             message: "Team registered successfully! You'll receive room details when available.",
@@ -63,16 +67,16 @@ router.post('/:tournamentId', async (req, res) => {
     catch (error) {
         return res.status(500).json({ error: error.message });
     }
-});
+}));
 // Get all teams
-router.get('/:tournamentId/AllTeams', async (req, res) => {
+router.get('/:tournamentId/AllTeams', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tournamentId } = req.params;
-    const tournament = await Tournament_js_1.default.findById(tournamentId).populate('registeredTeams');
-    const TeamsDetails = tournament?.registeredTeams;
+    const tournament = yield Tournament.findById(tournamentId).populate('registeredTeams');
+    const TeamsDetails = tournament === null || tournament === void 0 ? void 0 : tournament.registeredTeams;
     return res.status(200).json({ TeamsDetails });
-});
+}));
 // Check registration status
-router.get('/:tournamentId/registration-status', async (req, res) => {
+router.get('/:tournamentId/registration-status', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const SECRET = process.env.SECRET;
         const { tournamentId } = req.params;
@@ -85,10 +89,10 @@ router.get('/:tournamentId/registration-status', async (req, res) => {
                 userTeam: null
             });
         }
-        const decoded = jsonwebtoken_1.default.verify(token, SECRET);
+        const decoded = jwt.verify(token, SECRET);
         const userId = decoded.id;
         // Check if user is registered
-        const userTeam = await Team_js_1.default.findOne({
+        const userTeam = yield Team.findOne({
             tournament: tournamentId,
             captainUserId: userId
         });
@@ -105,5 +109,5 @@ router.get('/:tournamentId/registration-status', async (req, res) => {
     catch (error) {
         return res.status(500).json({ error: error.message });
     }
-});
-exports.default = router;
+}));
+export default router;

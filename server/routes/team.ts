@@ -15,6 +15,8 @@ router.post('/:tournamentId', async (req, res) => {
         const { tournamentId } = req.params;
         const { teamname, captain, members, paymentId, orderId } = req.body;
 
+        console.log('Team registration attempt:', { tournamentId, teamname, captain });
+
         // Get user from token
         const token = req.cookies.token;
         if (!token) {
@@ -23,6 +25,11 @@ router.post('/:tournamentId', async (req, res) => {
 
         const decoded: any = jwt.verify(token, SECRET);
         const userId: string = decoded.id;
+
+        // Validate ObjectId format
+        if (!mongoose.Types.ObjectId.isValid(tournamentId)) {
+            return res.status(400).json({ message: "Invalid tournament ID format" });
+        }
 
         const tournament = await Tournament.findById(tournamentId);
         if (!tournament) {
@@ -57,7 +64,7 @@ router.post('/:tournamentId', async (req, res) => {
         await tournament.save();
 
         return res.json({
-            success: 200,
+            success: true,
             message: "Team registered successfully! You'll receive room details when available.",
             team: {
                 teamname: newTeam.teamname,
@@ -67,16 +74,33 @@ router.post('/:tournamentId', async (req, res) => {
         });
 
     } catch (error : any) {
-        return res.status(500).json({ error: error.message });
+        console.error('Error in team registration:', error);
+        return res.status(500).json({ error: error instanceof Error ? error.message : 'An unknown error occurred' });
     }
 });
 
 // Get all teams
 router.get('/:tournamentId/AllTeams', async (req, res) => {
-    const { tournamentId } = req.params;
-    const tournament = await Tournament.findById(tournamentId).populate('registeredTeams');
-    const TeamsDetails = tournament?.registeredTeams;
-    return res.status(200).json({ TeamsDetails });
+    try {
+        const { tournamentId } = req.params;
+        
+        // Validate ObjectId format
+        if (!mongoose.Types.ObjectId.isValid(tournamentId)) {
+            return res.status(400).json({ message: "Invalid tournament ID format" });
+        }
+
+        const tournament = await Tournament.findById(tournamentId).populate('registeredTeams');
+        
+        if (!tournament) {
+            return res.status(404).json({ message: "Tournament not found" });
+        }
+
+        const TeamsDetails = tournament.registeredTeams;
+        return res.status(200).json({ TeamsDetails });
+    } catch (error: any) {
+        console.error('Error fetching teams:', error);
+        return res.status(500).json({ error: error instanceof Error ? error.message : 'An unknown error occurred' });
+    }
 });
 
 // Check registration status
